@@ -40,6 +40,8 @@ class Cammino_Couponurl_Model_CouponObserver extends Varien_Object
             $router = Mage::app()->getRequest()->getRouteName();
 
             if($router != 'checkout' && $router != 'onestepcheckout') {
+                Mage::app()->getCacheInstance()->cleanType('block_html');
+                Mage::dispatchEvent('adminhtml_cache_refresh_type', array('type' => 'block_html'));
                 $product->setFinalPrice($product->getFinalPrice() -  ($product->getFinalPrice() * $totalDiscount / 100));
             }
             Mage::log($router, null, 'couponurl.log');
