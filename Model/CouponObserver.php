@@ -2,6 +2,7 @@
 
 class Cammino_Couponurl_Model_CouponObserver extends Varien_Object
 {
+    // Teste
     public function applyCoupon(Varien_Event_Observer $observer) {
         $session = Mage::getSingleton('core/session');
         $couponCode = (string)$session->getCustomCouponCode();
