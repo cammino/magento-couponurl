@@ -1,8 +1,6 @@
 <?php
-
 class Cammino_Couponurl_Model_CouponObserver extends Varien_Object
 {
-    // Teste
     public function applyCoupon(Varien_Event_Observer $observer) {
         $session = Mage::getSingleton('core/session');
         $couponCode = (string)$session->getCustomCouponCode();
@@ -10,7 +8,7 @@ class Cammino_Couponurl_Model_CouponObserver extends Varien_Object
         if (!$couponCode or !strlen($couponCode)) {
             return;
         }
-        Mage::log("Aplicou o cupom: " . $couponCode, null, 'couponurl.log');
+
         $session = Mage::getSingleton('checkout/session');
         $cart = Mage::getSingleton('checkout/cart')->getQuote();
         $cart->getShippingAddress()->setCollectShippingRates(true);
@@ -22,7 +20,6 @@ class Cammino_Couponurl_Model_CouponObserver extends Varien_Object
         $session = Mage::getSingleton('core/session');
         if (strlen($coupon) > 0) {
             $session->setCustomCouponCode($coupon);
-            Mage::log("Pegou o cupom: " . $session->getCustomCouponCode(), null, 'couponurl.log');
         }      
     }
 
@@ -45,7 +42,6 @@ class Cammino_Couponurl_Model_CouponObserver extends Varien_Object
                 Mage::dispatchEvent('adminhtml_cache_refresh_type', array('type' => 'block_html'));
                 $product->setFinalPrice($product->getFinalPrice() -  ($product->getFinalPrice() * $totalDiscount / 100));
             }
-            Mage::log($router, null, 'couponurl.log');
         }
     }
 }
